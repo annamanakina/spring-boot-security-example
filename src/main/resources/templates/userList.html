@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th > User Name </th>
+        <th > Roles </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <th:block th:each="custom_user: ${allUsers}">
+        <tr>
+            <td th:text="${custom_user.username}"></td>
+            <td th:text="${custom_user.roles}"></td>
+            <td > <a href="/edit"> Edit </a> </td>
+
+        </tr>
+    <!--   <th:block th:each="role : ${custom_user.roles}">
+           <tr>
+               <td th:text="${role}"></td>
+           </tr>
+       </th:block> -->
+        <!--  <tr>
+            <td > <a href="/edit"> Edit </a> </td>
+        </tr> -->
+
+
+    </th:block>
+
+    </tbody>
+
+</table>
+
+
+</body>
+</html>

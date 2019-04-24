@@ -91,4 +91,10 @@ public class GreetingController {
         // model.addAttribute("name", name);
         return "registration";
     }
+
+    @GetMapping("/users")
+    public String getUsers( Model model) {
+        model.addAttribute("allUsers", userRepo.findAll());
+        return "userList";
+    }
 }

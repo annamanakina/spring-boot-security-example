@@ -1,4 +1,4 @@
-package com.example.spring.boot.security.springbootdemosecurity.servie;
+package com.example.spring.boot.security.springbootdemosecurity.service;
 
 import com.example.spring.boot.security.springbootdemosecurity.model.Role;
 import com.example.spring.boot.security.springbootdemosecurity.model.User;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
