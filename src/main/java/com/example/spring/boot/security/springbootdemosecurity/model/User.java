@@ -21,7 +21,7 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
-    private LocalDate birthday;
+    private String birthday; //LocalDate
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
