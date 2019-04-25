@@ -4,6 +4,7 @@ import com.example.spring.boot.security.springbootdemosecurity.model.Role;
 import com.example.spring.boot.security.springbootdemosecurity.model.User;
 import com.example.spring.boot.security.springbootdemosecurity.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,17 +17,22 @@ import java.util.stream.Collectors;
 
 @Component("CustomUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
+    private final UserRepo userRepo;
+
     @Autowired
-    private UserRepo userRepo;
-
-
+    public CustomUserDetailsService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
 
-        User user = userRepo.findUserByUsername(s);
+        //User user = userRepo.findUserByUsername(username);
+        User user = userRepo.findUserByEmail(email);
+        if (user == null) throw new UsernameNotFoundException(email);
+
         Set<Role> roles = user.getRoles();
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        Set<GrantedAuthority> authorities = new HashSet<>();
         for (Role role : roles) {
            authorities.add(new SimpleGrantedAuthority(role.name()));
         }
@@ -37,7 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                         .map(Role::name)
                         .map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 authorities2);
     }
 }

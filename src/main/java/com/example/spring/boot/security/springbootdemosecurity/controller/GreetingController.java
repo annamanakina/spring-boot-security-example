@@ -2,34 +2,31 @@ package com.example.spring.boot.security.springbootdemosecurity.controller;
 
 import com.example.spring.boot.security.springbootdemosecurity.model.Role;
 import com.example.spring.boot.security.springbootdemosecurity.model.User;
-import com.example.spring.boot.security.springbootdemosecurity.repository.UserRepo;
+import com.example.spring.boot.security.springbootdemosecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Collections;
 
 @Controller
-public class GreetingController {
+class UserController {
     @Autowired
     @Qualifier("CustomUserDetailsService")
     UserDetailsService userDetailsService;
 
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepository;
 
-    /*@ModelAttribute("user")
-    private User user(){
+    @ModelAttribute("user")
+    public User user() {
         return new User();
-    }*/
+    }
 
     @GetMapping("/")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
@@ -63,38 +60,38 @@ public class GreetingController {
     }
 
     @PostMapping("/main")
-    public String add( Model model) {
-        // model.addAttribute("name", name);
+    public String showMainPage() {
         return "main";
     }
 
     @PostMapping("/register")
-    public String register(User user, Model model ) {
-        System.out.println("PostMapping register getUsername: " + user.getUsername());
-        System.out.println("PostMapping register getPassword: " + user.getPassword());
-        //User userFromDB = userRepo.findUserByEmail(user.getEmail());
-        User userFromDB = userRepo.findUserByUsername(user.getUsername());
+    public String addUser(@ModelAttribute("user") User user, Model model) {
+        User userFromDB = userRepository.findUserByEmail(user.getEmail());
         if (userFromDB != null){
             model.addAttribute("info", "user already exists");
             return "registration";
         }
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
-        // model.addAttribute("name", name);
+        User newUser = new User();
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setBirthday(user.getBirthday());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+        newUser.setRoles(Collections.singleton(Role.USER));
+        userRepository.save(newUser);
+        model.addAttribute("user", user);
         return "redirect:/login";
     }
 
     @GetMapping("/register")
     public String registration( ) {
         System.out.println("GetMapping register");
-        // model.addAttribute("name", name);
         return "registration";
     }
 
     @GetMapping("/users")
     public String getUsers( Model model) {
-        model.addAttribute("allUsers", userRepo.findAll());
+        model.addAttribute("allUsers", userRepository.findAll());
         return "userList";
     }
 }

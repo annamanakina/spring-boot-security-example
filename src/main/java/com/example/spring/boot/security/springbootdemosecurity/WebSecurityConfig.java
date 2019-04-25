@@ -10,16 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 
-    //@Autowired
-   // private UserRepository userRepository;
-    @Autowired
-    private DataSource dataSource;
     @Autowired
     @Qualifier("CustomUserDetailsService")
     private UserDetailsService userDetailsService;
@@ -40,33 +34,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
-    /*@Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("pass")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
-    }*/
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//            auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                //, active what for?
-//                .usersByUsernameQuery("select username, password, active from spring_demo.users where username=?")
-//                .authoritiesByUsernameQuery("select u.username, ur.roles from spring_demo.users u " +
-//                        "inner join spring_demo.user_role ur on u.id = ur.user_id where u.username=?");
-
-            /*.usersByUsernameQuery("select email, password from user where email=?")
-                .authoritiesByUsernameQuery("select u.username, ur.roles from spring_demo.user u " +
-                        "inner join spring_demo.user_role ur on u.id = ur.user_id where u.email=?");*/
-
             auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
