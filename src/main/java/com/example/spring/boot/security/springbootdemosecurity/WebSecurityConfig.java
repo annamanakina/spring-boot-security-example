@@ -18,15 +18,16 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Qualifier("CustomUserDetailsService")
     private UserDetailsService userDetailsService;
 
-
+//spring.resources.add-mappings=true
+    //"/resources/**", "/static/**"
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/register").permitAll()
+                    .antMatchers("/", "/register", "/css/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
-                    .formLogin()
+                    .formLogin()//.failureUrl("/login?error")
                     .loginPage("/login")
                     .permitAll()
                 .and()

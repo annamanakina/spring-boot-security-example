@@ -3,6 +3,11 @@
 >
 <head>
     <title>Register </title>
+    <link type="text/css" rel="stylesheet" href="/css/registration-style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -14,17 +19,20 @@
     You have been logged out.
 </div>-->
 
+<div class="container">
 <h3 th:if="${info}" th:text="${info}"/>
 
 Add new user
 <form th:action="@{/register}" th:object="${user}" method="post">
     <div><label> First Name : <input type="text" name="firstName"/> </label></div>
     <div><label> Last Name: <input type="text" name="lastName"/> </label></div>
-    <div><label> Birthday : <input type="date" name="birthday"/> </label></div>
+    <div><label> Birthday : <input type="date" name="birthday" /> </label></div>
     <div><label> Email: <input type="email" name="email"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
+    <!-- th:value="*{birthday}" th:field="*{birthday}"-->
 
     <div><input type="submit" value="Register"/></div>
 </form>
+</div>
 </body>
 </html>

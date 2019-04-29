@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,7 +22,9 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String birthday; //LocalDate
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday; //LocalDate
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
