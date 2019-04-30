@@ -1,10 +1,14 @@
 package com.example.spring.boot.security.springbootdemosecurity.service;
 
 
+import com.example.spring.boot.security.springbootdemosecurity.dto.EventDTO;
 import com.example.spring.boot.security.springbootdemosecurity.model.Event;
 import com.example.spring.boot.security.springbootdemosecurity.repository.EventRepository;
+import com.example.spring.boot.security.springbootdemosecurity.utils.DTOEntity;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -27,6 +31,10 @@ public class EventService {
     private final EventRepository eventRepository;
 
     @Autowired
+    private ModelMapper modelMapper;
+
+
+    @Autowired
     public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
@@ -42,6 +50,23 @@ public class EventService {
     public Optional<Event> getById(Long id){
         return eventRepository.findById(id);
     }
+
+
+
+    public void create(EventDTO eventDTO) {
+        Event event = modelMapper.map(eventDTO, Event.class);
+        System.out.println("create: " + event);
+        eventRepository.save(event);
+        eventRepository.findAll().forEach(System.out::println);
+    }
+
+      /*  public DTOEntity convertToDto(Object obj, DTOEntity mapper) {
+            return new ModelMapper().map(obj, mapper.getClass());
+        }
+
+        public Object convertToEntity(Object obj, DTOEntity mapper) {
+            return new ModelMapper().map(mapper, obj.getClass());
+        }*/
 
 
    /* private EventDAO eventDAO;

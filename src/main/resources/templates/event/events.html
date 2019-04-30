@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Events</title>
+</head>
+<body>
+
+<H3>Create Events</H3>
+
+
+
+<div class="container">
+    <form action="#" th:action="@{/events}" th:object="${eventDTO}" th:modelAttribute="eventDTO" method="post">
+
+        <p > Select type of event: </p>
+        <select  th:field="*{title}" name="events" id="datalistEvents">
+            <option value="full-length">full-length-movie</option>
+            <option value="short">short-movie</option>
+            <option value="charity">charity-movie</option>
+        </select>
+
+        <p > Select film: </p>
+        <select name="films" th:field="*{film}" >
+            <option th:each="film : ${films}" th:value="${film.id}" th:text="${film.title}">
+            </option>
+        </select>
+
+        <p> Select auditorium: </p>
+        <select name="auditoriums" id="datalistAuditoriums" th:field="*{auditorium}">
+            <option th:each="auditorium : ${auditoriums}" th:value="${auditorium.id}" th:text="${auditorium.title}">
+            </option>
+        </select>
+
+        <p> Choose type of event: </p>
+        <input th:field="*{airDate}" type="datetime-local" name="timeSlot">
+
+
+        <input name="submit" type="submit" value="Save event" />
+
+    </form>
+
+
+    <!--  <p>Выберите категорию продукта: </p>
+            <input id="productCategoryInput" name="addProductCategoryInput" type="text" list="categoryList"/>
+            <datalist name="listItem" id="categoryList">
+                <c:forEach var="categoryItem" items="${categoryList1.all}">
+                    <option name="categoryOption" value="${categoryItem.title}" id="${categoryItem.id}">
+                    </option>
+                </c:forEach>
+            </datalist>
+-->
+</div>
+</body>
+</html>
