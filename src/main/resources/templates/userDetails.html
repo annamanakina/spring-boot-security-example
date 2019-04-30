@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <p>User Details page</p>
+
+    <!--/*@thymesVar id="infoUpdated" type=""*/-->
+    <h4  th:text="${infoUpdated}"></h4>
+    <!--/*@thymesVar id="info1" type=""*/-->
+    <h1 th:text="'Thanks for helping us test, ' + ${info1} + '!'"></h1>
+</div>
+
+
+<form th:action="@{/users/user/{id}(id=${user.id})}" th:object="${user}" method="post">
+    <input type="text" name="firstName" th:value="${user.firstName}">
+    <input type="text" name="lastName" th:value="${user.lastName}">
+    <input type="date" name="birthday" th:value="${user.birthday}">
+
+    <div>
+        <label th:for="${#ids.next('covered')}" th:each="role: ${user.roles}" >
+            <input type="checkbox" name="${role}" th:text="${role}" th:checked="${role} ? 'checked' : ''" >
+        </label>
+    </div>
+
+    <div><input type="submit" value="Save"/></div>
+</form>
+
+</body>
+</html>
