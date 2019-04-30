@@ -120,7 +120,7 @@ public class UserController {
         return "userDetails";
     }
 
-    @PostMapping("/users/user/{i  d}")
+    @PostMapping("/users/user/{id}")
     ///{id}
     //@ModelAttribute User user,
     public String updateUser(@PathVariable String id, Model model) {
