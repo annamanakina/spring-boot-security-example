@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="/css/registration-style.css">
+</head>
+<body>
+
+<H3 th:text="'Add new film '"></H3>
+
+<div class="container">
+    <form action="#" th:action="@{/films}" method="post"
+          th:modelAttribute="${filmDTO}" th:object="${filmDTO}" >
+        <input type="text" th:name="title" placeholder="Movie title" />
+        <input type="number" th:name="duration" min="0" placeholder="Duration" />
+
+        <input type="submit" value="Save movie" />
+
+        <table th:if="${films}">
+            <thead>
+            <tr>
+                <th > ID </th>
+                <th > Title </th>
+                <th > Duration </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <th:block th:each="film: ${films}">
+                <tr>
+                    <td th:text="${film.id}"></td>
+                    <td th:text="${film.title}"></td>
+                    <td th:text="${film.duration}"></td>
+                    <td > <a th:href="@{/films/film/{id}(id=${film.id})}" > Edit </a> </td>
+                    <td > <a th:href="@{/films/{id}(id=${film.id})}" > Delete </a> </td>
+                </tr>
+            </th:block>
+        </tbody>
+        </table>
+    </form>
+
+
+</div>
+
+</body>
+</html>

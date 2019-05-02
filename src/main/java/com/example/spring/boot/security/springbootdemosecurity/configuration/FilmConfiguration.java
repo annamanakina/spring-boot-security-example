@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
 @Component
 @Configuration
 @PropertySource("classpath:property/films.properties")
@@ -35,8 +34,6 @@ public class FilmConfiguration implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         if (films != null && !films.isEmpty()) {
             filmRepository.saveAll(films);
-            System.out.println("save film");
         }
-        System.out.println("afterPropertiesSet");
     }
 }

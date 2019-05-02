@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="/css/registration-style.css">
+</head>
+<body>
+
+<H3 th:text="'Edit film: ' + ${filmDTO.title}"></H3>
+
+<div class="container">
+<form action="#" th:action="@{/films/film/{id}(id=${filmDTO.id})}" method="post"
+      th:modelAttribute="${filmDTO}" th:object="${filmDTO}">
+    <input type="text" th:name="title" th:value="${filmDTO.title}" />
+    <input type="number" th:name="rating" th:step="0.1" min="0" th:value="${filmDTO.rating}" />
+    <input type="number" th:name="duration" min="0" th:value="${filmDTO.duration}" />
+    <input type="submit" value="Save" />
+</form>
+</div>
+</body>
+</html>

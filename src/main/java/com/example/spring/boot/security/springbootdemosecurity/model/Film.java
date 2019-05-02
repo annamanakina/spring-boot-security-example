@@ -10,11 +10,12 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Table(name = "films")
 public class Film {
 
     @Id
-    //@GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String title;
     private double rating;
