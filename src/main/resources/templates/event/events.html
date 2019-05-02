@@ -7,9 +7,6 @@
 <body>
 
 <H3>Create Events</H3>
-
-
-
 <div class="container">
     <form action="#" th:action="@{/events}" th:object="${eventDTO}" th:modelAttribute="eventDTO" method="post">
 
@@ -33,23 +30,10 @@
         </select>
 
         <p> Choose type of event: </p>
-        <input th:field="*{airDate}" type="datetime-local" name="timeSlot">
-
-
+        <input  type="datetime-local" name="currentDate" />
         <input name="submit" type="submit" value="Save event" />
-
     </form>
 
-
-    <!--  <p>Выберите категорию продукта: </p>
-            <input id="productCategoryInput" name="addProductCategoryInput" type="text" list="categoryList"/>
-            <datalist name="listItem" id="categoryList">
-                <c:forEach var="categoryItem" items="${categoryList1.all}">
-                    <option name="categoryOption" value="${categoryItem.title}" id="${categoryItem.id}">
-                    </option>
-                </c:forEach>
-            </datalist>
--->
 </div>
 </body>
 </html>
